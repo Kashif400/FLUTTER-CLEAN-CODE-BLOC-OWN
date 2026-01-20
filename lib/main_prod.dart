@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'config/dependency_injection.dart';
+import 'core/di/dependency_injection.dart';
 import 'core/utils/talker_bloc_observer.dart';
 import 'core/utils/talker_service.dart';
-import 'main_common.dart';
+import 'app/app_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,10 +12,10 @@ void main() async {
   await initializeDependencies(environment: 'prod');
 
   // Get TalkerService and setup BLoC observer
-  final talkerService = serviceLocator<TalkerService>();
+  final talkerService = locator<TalkerService>();
   Bloc.observer = TalkerBlocObserverService(talkerService);
 
   talkerService.info('🚀 Starting app in PROD mode');
 
-  runApp(const MyApp());
+  runApp(const AppWidget());
 }

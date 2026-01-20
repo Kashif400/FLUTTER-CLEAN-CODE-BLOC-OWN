@@ -24,7 +24,11 @@ class $AssetsLogosGen {
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsLogosGen logos = $AssetsLogosGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {
