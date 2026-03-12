@@ -4,6 +4,8 @@ import '../utils/local_storage_service.dart';
 import '../utils/talker_service.dart';
 import '../constants/app_config.dart';
 import '../network/dio_client.dart';
+import '../network/network_info.dart';
+import '../network/network_info_impl.dart';
 import '../services/localization_service.dart';
 
 // Auth feature imports
@@ -44,6 +46,9 @@ Future<void> initializeDependencies({String? environment}) async {
 
   locator.registerLazySingleton<AppRouter>(() => AppRouter());
 
+  // Network info - connectivity checker
+  locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
+
   // Dio Client - uses GetIt internally to get dependencies
   locator.registerLazySingleton<DioClient>(() => DioClient());
 
@@ -64,6 +69,7 @@ Future<void> initializeDependencies({String? environment}) async {
     () => AuthRepositoryImpl(
       remoteDataSource: locator<AuthRemoteDataSource>(),
       localDataSource: locator<AuthLocalDataSource>(),
+      networkInfo: locator<NetworkInfo>(),
     ),
   );
 
